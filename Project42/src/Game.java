@@ -110,7 +110,7 @@ public class Game extends Canvas {
               // create a block of aliens (5x12)
               alienCount = 0;
   
-                  Entity alien = new AlienEntity(this, "sprites/blueEnemy.gif", 
+                  Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
                       930 + (10 * 40),
                       50 + (10 * 30));
                   entities.add(alien);
