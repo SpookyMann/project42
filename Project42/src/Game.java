@@ -104,7 +104,7 @@ public class Game extends Canvas {
     	 */
     	private void initEntities() {
               // create the ship and put in center of screen
-              ship = new ShipEntity(this, "sprites/35.png", 0, 500);
+              ship = new ShipEntity(this, "sprites/blueShip.png", 0, 500);
               entities.add(ship);
     
               // create a block of aliens (5x12)
