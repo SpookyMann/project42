@@ -111,8 +111,8 @@ public class Game extends Canvas {
               alienCount = 0;
   
                   Entity alien = new AlienEntity(this, "sprites/alien.gif", 
-                      930 + (col * 40),
-                      50 + (row * 30));
+                      930 + (10 * 40),
+                      50 + (10 * 30));
                   entities.add(alien);
                   alienCount++;
                 } // for
