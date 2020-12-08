@@ -110,11 +110,43 @@ public class Game extends Canvas {
               // create a block of aliens (5x12)
               alienCount = 0;
   
+                     int en = (int)(Math.random( ) * 5 + 1);
+              if(en == 1 || alienCount == 0) {
+            	  System.out.println(en);
                   Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
                       930 + (10 * 40),
                       50 + (10 * 30));
                   entities.add(alien);
                   alienCount++;
+              }else if(en == 2 && alienCount < 1){
+            	  System.out.println(en);
+            	  Entity alien = new AlienEntity(this, "sprites/alien.png", 
+                          930 + (10 * 40),
+                          50 + (10 * 30));
+                      entities.add(alien);
+                      alienCount++;
+              }else if(en == 3 && alienCount < 1) {
+            	  System.out.println(en);
+            	  Entity alien = new AlienEntity(this, "sprites/alien.png", 
+                          930 + (10 * 40),
+                          50 + (10 * 30));
+                      entities.add(alien);
+                      alienCount++;
+              }else if(en == 4 && alienCount <2) {
+            	  System.out.println(en);
+            	  Entity alien = new AlienEntity(this, "sprites/alien.png", 
+                          930 + (10 * 40),
+                          50 + (10 * 30));
+                      entities.add(alien);
+                      alienCount++;
+              }else if(en == 5 && alienCount <20) {
+            	  System.out.println(en);
+            	  Entity alien = new AlienEntity(this, "sprites/alien.png", 
+                          930 + (10 * 40),
+                          50 + (10 * 30));
+                      entities.add(alien);
+                      alienCount++;
+              }//else if
                
     	} // initEntities
 
