@@ -48,9 +48,9 @@ public class AlienEntity extends Entity {
    */
   public void doLogic() {
     // swap horizontal direction and move down screen 10 pixels
-    dx *= -1;
-    y += 10;
-
+    if(dx < 0){
+    //  game.removeEntities.add(entity)
+    }
   } // doLogic
  
 
