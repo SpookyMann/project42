@@ -115,8 +115,7 @@ public class Game extends Canvas {
                       50 + (10 * 30));
                   entities.add(alien);
                   alienCount++;
-                } // for
-              } // outer for
+               
     	} // initEntities
 
         /* Notification from a game entity that the logic of the game
