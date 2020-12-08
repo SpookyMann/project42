@@ -34,15 +34,13 @@ public class Game extends Canvas {
         private long lastAlien = 0;
         private long alienSpawnInterval = 1000;
         private long firingInterval = 300; // interval between shots (ms)
+        private long deathInterval = 300;
         private long jumpInterval = 20;
         private int alienCount = 0; // # of aliens left on screen
         private int alienScore = 0;
         private String message = ""; // message to display while waiting
                                      // for a key press
-
-        private String message = ""; // message to display while waiting
-                                     // for a key press
-
+        private long lastDeath = 0;
         private boolean logicRequiredThisLoop = false; // true if logic
                                                        // needs to be 
                                                        // applied this loop
@@ -58,11 +56,11 @@ public class Game extends Canvas {
     		JPanel panel = (JPanel) container.getContentPane();
     
     		// set up the resolution of the game
-    		panel.setPreferredSize(new Dimension(1600,1200));
+    		panel.setPreferredSize(new Dimension(800,1000));
     		panel.setLayout(null);
     
     		// set up canvas size (this) and add to frame
-    		setBounds(0,0,1600,1200);
+    		setBounds(0,0,800,1000);
     		panel.add(this);
     
     		// Tell AWT not to bother repainting canvas since that will
@@ -110,16 +108,16 @@ public class Game extends Canvas {
               // create the ship and put in center of screen
               ship = new ShipEntity(this, "sprites/blueShip.png", 0, 500);
               entities.add(ship);
-    
-              // create a block of aliens (5x12)
-
+              
+              //spawns first alien
+  
                   Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
                       930 + (10 * 40),
                       50 + (10 * 30));
                   entities.add(alien);
                   alienCount++;
-    
-               
+              
+           
     	} // initEntities
 
         /* Notification from a game entity that the logic of the game
@@ -156,18 +154,29 @@ public class Game extends Canvas {
          public void notifyAlienKilled() {
            alienCount--;
            
-           if (alienCount == 0) {
+          /* if (alienCount == 0) {
              notifyWin();
-           } // if
+           } // if*/
            
            // speed up existing aliens
            for (int i=0; i < entities.size(); i++) {
              Entity entity = (Entity) entities.get(i);
              if (entity instanceof AlienEntity) {
                // speed up by 2%
-		 alienScore++;
-               entity.setHorizontalMovement(entity.getHorizontalMovement() * 1.02);
-             } // if
+            	 alienScore++;
+            	 int y = entity.getY();
+            	 int x = entity.getY();
+            	 Entity alien = new AlienEntity(this, "sprites/death.png", 
+                         500,
+                         500);
+                     entities.add(alien);
+                     if ((System.currentTimeMillis() - lastDeath) < deathInterval){
+                         return;
+                       }else {
+                       lastDeath = System.currentTimeMillis();
+                       entities.remove(alien);
+                       }
+             }
            } // for
          } // notifyAlienKilled
 
