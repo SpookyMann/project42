@@ -247,7 +247,7 @@ public class Game extends Canvas {
                 entities.add(alien);
                 alienCount++;
             }//else
-        	
+	}
         } // if
 
 	/*
