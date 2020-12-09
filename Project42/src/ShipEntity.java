@@ -1,22 +1,29 @@
+import java.util.ArrayList;
+
 /* ShipEntity.java
  * March 27, 2006
  * Represents player's ship
  */
 public class ShipEntity extends Entity {
-
+	
   private Game game; // the game in which the ship exists
-
+  public String sprites [] = {"sprites/reimu_jump.png", "sprites/reimu_dash.png", 
+		  						"sprites/reimu_back_dash.png", "sprites/reimu_falling.png"};
+  private String currentFrame;
+ 
   /* construct the player's ship
    * input: game - the game in which the ship is being created
    *        ref - a string with the name of the image associated to
    *              the sprite for the ship
    *        x, y - initial location of ship
    */
-  public ShipEntity(Game g, String r, int newX, int newY) {
-    super(r, newX, newY);  // calls the constructor in Entity
+  public ShipEntity(Game g, int newX, int newY) {
+    super("sprites/reimu_jump.png", newX, newY);  // calls the constructor in Entity
     game = g;
+    currentFrame = sprites[0];
   } // constructor
 
+  
   /* move
    * input: delta - time elapsed since last move (ms)
    * purpose: move ship 
@@ -39,10 +46,26 @@ public class ShipEntity extends Entity {
         return;
     } // if
     
-    
+    if(dx == 0 && dy == 0) {
+    	currentFrame = sprites[0];
+    }
+    if(dx > 0) {
+    	currentFrame = sprites[1];
+    }
+    if(dx < 0) {
+    	currentFrame = sprites[2];
+    }
+    if(dy > 0) {
+    	currentFrame = sprites[3];
+    }
       
     super.move(delta);  // calls the move method in Entity
   } // move
+  
+  public void createSprite(String r) {
+		r = currentFrame;
+	  	super.createSprite(r);
+  }
   
 
   /* collidedWith
