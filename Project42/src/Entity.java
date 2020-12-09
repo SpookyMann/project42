@@ -35,6 +35,11 @@
        sprite = (SpriteStore.get()).getSprite(r);
      } // constructor
 
+     // changes sprite frames for animation 
+     public void createSprite(String r) {
+    	  sprite = (SpriteStore.get()).getSprite(r);
+     }
+  
      /* move
       * input: delta - the amount of time passed in ms
       * output: none
