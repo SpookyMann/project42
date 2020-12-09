@@ -32,8 +32,10 @@ public class Game extends Canvas {
         private long lastFire = 0; // time last shot fired
         private long alienFire = 0;
         private long lastAlien = 0;
-        private long alienSpawnInterval = 1000;
+        private long lastAlienFire = 0;
+        private long alienSpawnInterval = 2000;
         private long firingInterval = 300; // interval between shots (ms)
+        private long firingIntervalAlien = 700; // interval between shots (ms)
         private long deathInterval = 300;
         private long jumpInterval = 20;
         private int alienCount = 0; // # of aliens left on screen
@@ -56,11 +58,11 @@ public class Game extends Canvas {
     		JPanel panel = (JPanel) container.getContentPane();
     
     		// set up the resolution of the game
-    		panel.setPreferredSize(new Dimension(800,1000));
+    		panel.setPreferredSize(new Dimension(1000,1000));
     		panel.setLayout(null);
     
     		// set up canvas size (this) and add to frame
-    		setBounds(0,0,800,1000);
+    		setBounds(0,0,1000,1000);
     		panel.add(this);
     
     		// Tell AWT not to bother repainting canvas since that will
@@ -112,7 +114,7 @@ public class Game extends Canvas {
               //spawns first alien
   
                   Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
-                      930 + (10 * 40),
+                      500 + (10 * 40),
                       50 + (10 * 30));
                   entities.add(alien);
                   alienCount++;
@@ -166,7 +168,7 @@ public class Game extends Canvas {
             	 alienScore++;
             	 int y = entity.getY();
             	 int x = entity.getY();
-            	 Entity alien = new AlienEntity(this, "sprites/death.png", 
+            	 Entity alien = new DeathEntity(this, "sprites/death.png", 
                          500,
                          500);
                      entities.add(alien);
@@ -179,7 +181,18 @@ public class Game extends Canvas {
              }
            } // for
          } // notifyAlienKilled
+         public void alienFire() {
+        	   if ((System.currentTimeMillis() - lastAlienFire) < firingIntervalAlien){
+                   return;
+                 } // if
 
+                 // otherwise add a shot
+                 alienFire = System.currentTimeMillis();
+                 ShotEntity shot = new ShotEntity(this, "sprites/shot.gif", 
+                                   ship.getX(), ship.getY());
+                 entities.add(shot);
+         }
+         
         /* Attempt to fire.*/
         public void tryToFire() {
           // check that we've waited long enough to fire
@@ -200,51 +213,57 @@ public class Game extends Canvas {
         	}else {
         	lastAlien = System.currentTimeMillis();
         	int en = (int)(Math.random( ) * 5 + 1);
-        	int y = (int)(Math.random( ) * 250 + 20);
-        	int x = (int)(Math.random( ) * 250 + 20);
+        	int y = (int)(Math.random( ) * 900 + 10);
+        	
            
           	if(en == 1) {
           		System.out.println(en);
-                Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
-                    930 + (10 * y),
-                    50 + (10 * x));
+                Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y);
                 entities.add(alien);
+               
                 alienCount++;
           	}
            if(en == 2 && alienScore > 1){
           	  System.out.println(en);
-          	  Entity alien = new AlienEntity(this, "sprites/alien.png", 
-                        930 + (x * 40),
-                        50 + (y * 30));
+          	  Entity alien = new AlienEntity(this, "sprites/alien.gif", 1000, y); 
+                      
                     entities.add(alien);
+                   AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
+                           alien.getX(), alien.getY());
+                    entities.add(shot);
                     alienCount++;
             }else if(en == 3 && alienScore > 1) {
           	  System.out.println(en);
-          	  Entity alien = new AlienEntity(this, "sprites/greenFace.png", 
-                        930 + (x * 40),
-                        50 + (y * 30));
+          	  Entity alien = new AlienEntity(this, "sprites/greenFace.png", 1000, y); 
+                     
                     entities.add(alien);
+                    AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
+                           alien.getX(), alien.getY());
+                    entities.add(shot);
                     alienCount++;
-            }else if(en == 4 && alienScore >2) {
+            }else if(en == 4 && alienScore >=2) {
           	  System.out.println(en);
-          	  Entity alien = new AlienEntity(this, "sprites/yellowStick.png", 
-                        930 + (x * 40),
-                        50 + (y * 30));
+          	  Entity alien = new AlienEntity(this, "sprites/yellowStick.png", 1000, y);
+                     
                     entities.add(alien);
+                    AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
+                            alien.getX(), alien.getY());
+                    entities.add(shot);
                     alienCount++;
-            }else if(en == 5 && alienScore >2) {
+            }else if(en == 5 && alienScore > 2) {
           	  System.out.println(en);
-          	  Entity alien = new AlienEntity(this, "sprites/manyStick.png", 
-                        930 + (x * 40),
-                        50 + (y * 30));
+          	  Entity alien = new AlienEntity(this, "sprites/manyStick.png", 1000, y);
+                     
                     entities.add(alien);
                     alienCount++;
             }else {
             	System.out.println(en);
-                Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
-                    930 + (10 * y),
-                    50 + (10 * x));
+                Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y); 
+                 
                 entities.add(alien);
+                AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
+                       alien.getX(), alien.getY());
+                entities.add(shot);
                 alienCount++;
             }//else
 	}
@@ -283,10 +302,11 @@ public class Game extends Canvas {
               for (int i = 0; i < entities.size(); i++) {
                 Entity entity = (Entity) entities.get(i);
                 entity.move(delta);
+            	alienSpawn();
               } // for
             } // if
 		
-		alienSpawn();
+	
             // draw all entities
             for (int i = 0; i < entities.size(); i++) {
                Entity entity = (Entity) entities.get(i);
@@ -326,7 +346,7 @@ public class Game extends Canvas {
            if (waitingForKeyPress) {
              g.setColor(Color.white);
              g.drawString(message, (1000 - g.getFontMetrics().stringWidth(message))/2, 250);
-             g.drawString("Space Invaders!", (1000 - g.getFontMetrics().stringWidth("Space Invaders!"))/2, 300);
+             g.drawString("Project 42!", (1000 - g.getFontMetrics().stringWidth("Project 42!"))/2, 300);
            }  // if
 
             // clear graphics and flip buffer
