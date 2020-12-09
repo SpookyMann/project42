@@ -181,16 +181,21 @@ public class Game extends Canvas {
              }
            } // for
          } // notifyAlienKilled
-         public void alienFire() {
+        public void alienFire() {
+        	 for (int i=0; i < entities.size(); i++) {
+                 Entity entity = (Entity) entities.get(i);
+               if (entity instanceof AlienEntity) {
         	   if ((System.currentTimeMillis() - lastAlienFire) < firingIntervalAlien){
                    return;
                  } // if
 
                  // otherwise add a shot
                  alienFire = System.currentTimeMillis();
-                 ShotEntity shot = new ShotEntity(this, "sprites/shot.gif", 
-                                   ship.getX(), ship.getY());
+                 AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
+                                   entity.getX(), entity.getY());
                  entities.add(shot);
+                 }
+        	 }
          }
          
         /* Attempt to fire.*/
@@ -220,7 +225,7 @@ public class Game extends Canvas {
           		System.out.println(en);
                 Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y);
                 entities.add(alien);
-               
+                alienFire();
                 alienCount++;
           	}
            if(en == 2 && alienScore > 1){
@@ -228,32 +233,26 @@ public class Game extends Canvas {
           	  Entity alien = new AlienEntity(this, "sprites/alien.gif", 1000, y); 
                       
                     entities.add(alien);
-                   AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
-                           alien.getX(), alien.getY());
-                    entities.add(shot);
+                   alienFire();
                     alienCount++;
             }else if(en == 3 && alienScore > 1) {
           	  System.out.println(en);
           	  Entity alien = new AlienEntity(this, "sprites/greenFace.png", 1000, y); 
                      
                     entities.add(alien);
-                    AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
-                           alien.getX(), alien.getY());
-                    entities.add(shot);
+                   alienFire();
                     alienCount++;
             }else if(en == 4 && alienScore >=2) {
           	  System.out.println(en);
           	  Entity alien = new AlienEntity(this, "sprites/yellowStick.png", 1000, y);
                      
                     entities.add(alien);
-                    AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
-                            alien.getX(), alien.getY());
-                    entities.add(shot);
+                    alienFire();
                     alienCount++;
             }else if(en == 5 && alienScore > 2) {
           	  System.out.println(en);
           	  Entity alien = new AlienEntity(this, "sprites/manyStick.png", 1000, y);
-                     
+                     alienFire();
                     entities.add(alien);
                     alienCount++;
             }else {
@@ -261,9 +260,8 @@ public class Game extends Canvas {
                 Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y); 
                  
                 entities.add(alien);
-                AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
-                       alien.getX(), alien.getY());
-                entities.add(shot);
+               alienFire();
+             
                 alienCount++;
             }//else
 	}
@@ -303,6 +301,7 @@ public class Game extends Canvas {
                 Entity entity = (Entity) entities.get(i);
                 entity.move(delta);
             	alienSpawn();
+            	
               } // for
             } // if
 		
