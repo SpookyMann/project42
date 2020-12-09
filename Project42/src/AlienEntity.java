@@ -3,7 +3,8 @@
  * Represents one of the aliens
  */
 public class AlienEntity extends Entity {
-
+	private long lastAlienFire = 0;
+	int firingIntervalAlien = (int)(Math.random( ) * 700 + 400);
   private double moveSpeed = 75; // horizontal speed
 
   private Game game; // the game in which the alien exists
@@ -53,6 +54,13 @@ public class AlienEntity extends Entity {
     }
   } // doLogic
  
+  public boolean tryToFire() {
+	  if((System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
+          return true;
+		 
+            }//if
+   	   return false;
+  }//tryToFire
 
   /* collidedWith
    * input: other - the entity with which the alien has collided
