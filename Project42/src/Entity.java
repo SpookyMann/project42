@@ -1,4 +1,3 @@
-
 /* Entity.java
  * An entity is any object that appears in the game.
  * It is responsible for resolving collisions and movement.
@@ -35,11 +34,6 @@
        sprite = (SpriteStore.get()).getSprite(r);
      } // constructor
 
-     // changes sprite frames for animation 
-     public void createSprite(String r) {
-    	  sprite = (SpriteStore.get()).getSprite(r);
-     }
-  
      /* move
       * input: delta - the amount of time passed in ms
       * output: none
@@ -60,7 +54,7 @@
      public void setVerticalMovement(double newDY) {
        dy = newDY;
      } // setVerticalMovement
-  
+
      public double getHorizontalMovement() {
        return dx;
      } // getHorizontalMovement
@@ -73,7 +67,7 @@
      public int getX() {
        return (int) x;
      } // getX
-
+    
      public int getY() {
        return (int) y;
      } // getY
@@ -109,5 +103,8 @@
       *       that extends this class
       */
       public abstract void collidedWith(Entity other);
+      
+      
+      public boolean tryToFire() { return false;}
 
  } // Entity class
