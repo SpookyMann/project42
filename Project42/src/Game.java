@@ -26,8 +26,9 @@ public class Game extends Canvas {
         private ArrayList entities = new ArrayList(); // list of entities
                                                       // in game
         private ArrayList removeEntities = new ArrayList(); // list of entities
-                                                            // to remove this loop
+                                                           // to remove this loop
         private Entity ship;  // the ship
+        private int lives = 3;
         private double moveSpeed = 300; // hor. vel. of ship (px/s)
         private long lastFire = 0; // time last shot fired
         private long alienFire = 0;
@@ -139,8 +140,15 @@ public class Game extends Canvas {
          /* Notification that the player has died.
           */
          public void notifyDeath() {
+        	 if(lives > 0) { 
+        		 lives--;
+        		
+        		 ship = new ShipEntity(this, "sprites/blueShip.png", ship.getX(), ship.getY());
+                 entities.add(ship);
+        	 }else {
            message = "You FAILED!  Would you like to try again?";
            waitingForKeyPress = true;
+        	 }
          } // notifyDeath
 
 
@@ -156,9 +164,7 @@ public class Game extends Canvas {
          public void notifyAlienKilled() {
            alienCount--;
            
-          /* if (alienCount == 0) {
-             notifyWin();
-           } // if*/
+        
            
            // speed up existing aliens
            for (int i=0; i < entities.size(); i++) {
@@ -294,7 +300,14 @@ public class Game extends Canvas {
             Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
             g.setColor(new Color(0,0,0));
             g.fillRect(0,0,1600,1200);
-
+            g.setColor(new Color(128,128,128));
+            g.fillRect(0,0,1000,100);
+            g.setColor(Color.white);
+            String str3 = String.valueOf(alienScore); 
+            g.drawString(str3, 50, 50);
+            g.drawString("Project 42!", (1000 - g.getFontMetrics().stringWidth("Project 42!"))/2, 50);
+            String str4 = String.valueOf(lives); 
+            g.drawString("You have " + str4 + " lives", 750, 50);
             // move each entity
             if (!waitingForKeyPress) {
               for (int i = 0; i < entities.size(); i++) {
@@ -401,6 +414,8 @@ public class Game extends Canvas {
             upPressed = false;
            downPressed = false;
             firePressed = false;
+            alienScore = 0;
+            lives = 3;
 
          } // startGame
 
