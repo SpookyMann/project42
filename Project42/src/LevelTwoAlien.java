@@ -5,7 +5,8 @@
 public class LevelTwoAlien extends Entity {
 
   private double moveSpeed = 75; // horizontal speed
-
+  private long lastAlienFire = 0;
+	int firingIntervalAlien = (int)(Math.random( ) * 700 + 400);
   private Game game; // the game in which the alien exists
 
   /* construct a new alien
@@ -53,7 +54,13 @@ public class LevelTwoAlien extends Entity {
     }
   } // doLogic
  
-
+  public boolean tryToFire() {
+	  if((System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
+          return true;
+		 
+            }//if
+   	   return false;
+  }//tryToFire
   /* collidedWith
    * input: other - the entity with which the alien has collided
    * purpose: notification that the alien has collided
