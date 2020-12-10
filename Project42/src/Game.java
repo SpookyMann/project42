@@ -30,8 +30,8 @@ public class Game extends Canvas {
         private ArrayList removeEntities = new ArrayList(); // list of entities
                                                            // to remove this loop
         private Entity ship;  // the ship
-	private Entity background;
-        private Entity backgroundRepeat;
+        /*private Entity background;
+        private Entity backgroundRepeat;*/
         private int lives = 3;
         private double moveSpeed = 300; // hor. vel. of ship (px/s)
         private long lastFire = 0; // time last shot fired
@@ -114,8 +114,8 @@ public class Game extends Canvas {
          *          Each entity will be added to the array of entities in the game.
     	 */
     	private void initEntities() {
-		background = new BackgroundEntity(this, "sprites/city.png",0,0);
-    		entities.add(background);
+		/*background = new BackgroundEntity(this, "sprites/city.png",0,0);
+    		entities.add(background);*/
               // create the ship and put in center of screen
               ship = new ShipEntity(this, 0, 500);
               entities.add(ship);
@@ -219,7 +219,7 @@ public class Game extends Canvas {
         	}else {
         	lastAlien = System.currentTimeMillis();
         	int en = (int)(Math.random( ) * 5 + 1);
-        	int y = (int)(Math.random( ) * 900 + 130);
+        	int y = (int)(Math.random( ) * 900 + 200);
         	
            
           	if(en == 1) {
@@ -236,20 +236,28 @@ public class Game extends Canvas {
                     entities.add(alien);
                  
                     alienCount++;
-            }else if(en == 3 && alienScore > 1) {
+            }else if(en == 3 && alienScore >= 1) {
           	  System.out.println(en);
           	  Entity alien = new AlienEntity(this, "sprites/greenFace.png", 1000, y); 
                      
                     entities.add(alien);
                   
                     alienCount++;
-            }else if(en == 4 && alienScore >=2) {
-          	  System.out.println(en);
-          	  Entity alien = new AlienEntity(this, "sprites/yellowStick.png", 1000, y);
-                     
+            }else if(en == 4 && alienScore > 1 ) {
+            	int num = (int)(Math.random( ) * 3 + 1);
+            	if(num == 1) {
+            	  Entity alien = new Asteroid(this, "sprites/bigAsteroid.png", 1000, y);
                     entities.add(alien);
-                 
                     alienCount++;
+            	}else if(num == 2) {
+            		Entity alien = new Asteroid(this, "sprites/mediumAsteroid.png", 1000, y);
+                    entities.add(alien);
+                    alienCount++;
+            	}else {
+            		Entity alien = new Asteroid(this, "sprites/smallAsteroid.png", 1000, y);
+                    entities.add(alien);
+                    alienCount++;
+            	}
             }else if(en == 5 && alienScore > 2) {
           	  System.out.println(en);
           	  Entity alien = new AlienEntity(this, "sprites/manyStick.png", 1000, y);
@@ -261,8 +269,7 @@ public class Game extends Canvas {
                 Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y); 
                  
                 entities.add(alien);
-             
-             
+            
                 alienCount++;
             }//else
 	}
@@ -292,7 +299,7 @@ public class Game extends Canvas {
             lastLoopTime = System.currentTimeMillis();
 
             // get graphics context for the accelerated surface and make it black
-            Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
+           Graphics2D g = (Graphics2D) strategy.getDrawGraphics();
             g.setColor(new Color(0,0,0));
             g.fillRect(0,0,1600,1200);
             g.setColor(new Color(128,128,128));
@@ -313,13 +320,20 @@ public class Game extends Canvas {
               } // for
               for (int i=0; i < entities.size(); i++) {
                   Entity entity = (Entity) entities.get(i);
-                if (entity instanceof AlienEntity || entity instanceof LevelTwoAlien) {
+                if (entity instanceof AlienEntity ) {
                 	if(entity.tryToFire() == true) {
 
-                		AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/blueShot.png", 
+                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/blueShot.png", 
                               entity.getX(), entity.getY());
                 		entities.add(shot);
-                }//if
+                }else if( entity instanceof LevelTwoAlien) {
+                	if(entity.tryToFire() == true) {
+
+                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/shot.gif", 
+                              entity.getX(), entity.getY());
+                		entities.add(shot);
+                	}
+                }
        	   }//for
               }
             } // if
@@ -397,7 +411,7 @@ public class Game extends Canvas {
             if (firePressed) {
               tryToFire();
             } // if
-		  
+		  /*
 		  if((background.getX() + background.getWidth()) < width) {
             	
             	backgroundRepeat = new BackgroundEntity(this, "sprites/city.png",background.getX() + background.getWidth(), 0);
@@ -412,7 +426,7 @@ public class Game extends Canvas {
             	background.setX(0);
             	entities.remove(backgroundRepeat);
             	backgroundRepeat = null;
-            }
+            }*/
            
             // pause
             try { Thread.sleep(100); } catch (Exception e) {}
