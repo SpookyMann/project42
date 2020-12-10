@@ -111,5 +111,15 @@
       
       
       public boolean tryToFire() { return false;}
+  
+    public void setX(int i) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public int getWidth() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
  } // Entity class
