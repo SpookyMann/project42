@@ -30,8 +30,8 @@ public class Game extends Canvas {
         private ArrayList removeEntities = new ArrayList(); // list of entities
                                                            // to remove this loop
         private Entity ship;  // the ship
-        /*private Entity background;
-        private Entity backgroundRepeat;*/
+        private Entity background;
+        private Entity backgroundRepeat;
         private int lives = 3;
         private double moveSpeed = 300; // hor. vel. of ship (px/s)
         private long lastFire = 0; // time last shot fired
@@ -114,8 +114,8 @@ public class Game extends Canvas {
          *          Each entity will be added to the array of entities in the game.
     	 */
     	private void initEntities() {
-		/*background = new BackgroundEntity(this, "sprites/city.png",0,0);
-    		entities.add(background);*/
+		background = new BackgroundEntity(this, "sprites/city.png",0,0);
+    		entities.add(background);
               // create the ship and put in center of screen
               ship = new ShipEntity(this, 0, 500);
               entities.add(ship);
@@ -409,7 +409,7 @@ public class Game extends Canvas {
             if (firePressed) {
               tryToFire();
             } // if
-		  /*
+		  
 		  if((background.getX() + background.getWidth()) < width) {
             	
             	backgroundRepeat = new BackgroundEntity(this, "sprites/city.png",background.getX() + background.getWidth(), 0);
@@ -424,7 +424,7 @@ public class Game extends Canvas {
             	background.setX(0);
             	entities.remove(backgroundRepeat);
             	backgroundRepeat = null;
-            }*/
+            }
            
             // pause
             try { Thread.sleep(100); } catch (Exception e) {}
