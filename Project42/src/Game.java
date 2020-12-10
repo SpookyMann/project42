@@ -423,7 +423,7 @@ public class Game extends Canvas {
             if(backgroundRepeat != null && (backgroundRepeat.getX() + backgroundRepeat.getWidth()) < width) {
             	//System.out.println("background is at " + background.getX() + " and is moving at a speed of " + background.getHorizontalMovement());
             	
-            	background.setX(1000);
+            	background.setX(0);
             	entities.remove(backgroundRepeat);
             	backgroundRepeat = null;
             }*/
