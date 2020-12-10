@@ -67,6 +67,10 @@ public void collidedWith(Entity other) {
 public int getWidth() {
 	return this.width;
 }
+	
+public void setX(int i){
+	this.x = i;
+}
 public void repeatImage() {
 	if((x + width) < width) {
 		x = 0;
