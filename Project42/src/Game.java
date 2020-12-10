@@ -194,11 +194,7 @@ public class Game extends Canvas {
              }
            } // for
          } // notifyAlienKilled
-        public void alienFire() {
-        	 
-          
-        }
-         
+   
         /* Attempt to fire.*/
         public void tryToFire() {
           // check that we've waited long enough to fire
@@ -230,7 +226,7 @@ public class Game extends Canvas {
                 alienCount++;
           	}
            if(en == 2 && alienScore > 1){
-          	  System.out.println(en);
+          	 
           	  Entity alien = new LevelTwoAlien(this, "sprites/alien.gif", 1000, y); 
                       
                     entities.add(alien);
@@ -318,26 +314,28 @@ public class Game extends Canvas {
             	alienSpawn();
             	
               } // for
-              for (int i=0; i < entities.size(); i++) {
+             for (int i=0; i < entities.size(); i++) {
                   Entity entity = (Entity) entities.get(i);
+                  if( entity instanceof LevelTwoAlien) {
+                
+                  	if(entity.tryToFire() == true) {
+                  		
+                  		AlienShotDefault shot = new AlienShotDefault(this, "sprites/shot.gif", 
+                                entity.getX(), entity.getY());
+                  		entities.add(shot);
+                  	}
+                  }
                 if (entity instanceof AlienEntity ) {
                 	if(entity.tryToFire() == true) {
 
                 		AlienShotDefault shot = new AlienShotDefault(this, "sprites/blueShot.png", 
                               entity.getX(), entity.getY());
                 		entities.add(shot);
-                }else if( entity instanceof LevelTwoAlien) {
-                	if(entity.tryToFire() == true) {
-
-                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/shot.gif", 
-                              entity.getX(), entity.getY());
-                		entities.add(shot);
-                	}
                 }
+                
        	   }//for
               }
             } // if
-		
 	
             // draw all entities
             for (int i = 0; i < entities.size(); i++) {
