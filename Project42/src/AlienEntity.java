@@ -4,7 +4,7 @@
  */
 public class AlienEntity extends Entity {
 	 private long lastAlienFire =  System.currentTimeMillis();;
-	  private int firingIntervalAlien = (int)(Math.random( ) * 700 + 400);
+	  private int firingIntervalAlien = (int)(Math.random( ) * 1000 + 800);
   private double moveSpeed = 75; // horizontal speed
 
   private Game game; // the game in which the alien exists
@@ -55,7 +55,7 @@ public class AlienEntity extends Entity {
   } // doLogic
  
   public boolean tryToFire() {
-	  int randNum = (int)(Math.random() * 10); 
+	  int randNum = (int)(Math.random() * 15); 
 	  if(randNum == 1 && (System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
 		  lastAlienFire = System.currentTimeMillis();
 
