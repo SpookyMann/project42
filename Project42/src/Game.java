@@ -1,3 +1,4 @@
+
 /* Game.java
  * Space Invaders Main Program
  *
@@ -202,7 +203,7 @@ public class Game extends Canvas {
 
           // otherwise add a shot
           lastFire = System.currentTimeMillis();
-          ShotEntity shot = new ShotEntity(this, "sprites/shot.gif", 
+          ShotEntity shot = new ShotEntity(this, "sprites/redShot.png", 
                             ship.getX(), ship.getY());
           entities.add(shot);
         } // tryToFire
@@ -310,7 +311,7 @@ public class Game extends Canvas {
                 if (entity instanceof AlienEntity || entity instanceof LevelTwoAlien) {
                 	if(entity.tryToFire() == true) {
 
-                		AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/shot.gif", 
+                		AlienDefaultShot shot = new AlienDefaultShot(this, "sprites/blueShot.png", 
                               entity.getX(), entity.getY());
                 		entities.add(shot);
                 }//if
