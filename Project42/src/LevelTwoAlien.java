@@ -2,11 +2,13 @@
  * March 27, 2006
  * Represents one of the aliens
  */
+
+//alien class
 public class LevelTwoAlien extends Entity {
 
   private double moveSpeed = 75; // horizontal speed
   private long lastAlienFire = 0;
-	int firingIntervalAlien = (int)(Math.random( ) * 700 + 400);
+	int firingIntervalAlien = (int)(Math.random( ) * 500 + 400);
   private Game game; // the game in which the alien exists
 
   /* construct a new alien
@@ -55,8 +57,9 @@ public class LevelTwoAlien extends Entity {
   } // doLogic
  
   public boolean tryToFire() {
-	  if((System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
-          return true;
+	  int randNum = (int)(Math.random() * 15); 
+	  if(randNum == 1 && (System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
+		  lastAlienFire = System.currentTimeMillis();
 		 
             }//if
    	   return false;
