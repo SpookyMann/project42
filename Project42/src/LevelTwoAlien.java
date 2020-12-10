@@ -2,13 +2,11 @@
  * March 27, 2006
  * Represents one of the aliens
  */
-
-//alien class
 public class LevelTwoAlien extends Entity {
-
+	 private long lastAlienFire =  System.currentTimeMillis();;
+	  private int firingIntervalAlien = (int)(Math.random( ) * 800 + 400);
   private double moveSpeed = 75; // horizontal speed
-  private long lastAlienFire = 0;
-	int firingIntervalAlien = (int)(Math.random( ) * 500 + 400);
+
   private Game game; // the game in which the alien exists
 
   /* construct a new alien
@@ -20,6 +18,7 @@ public class LevelTwoAlien extends Entity {
     super(r, newX, newY);  // calls the constructor in Entity
     game = g;
     dx = -moveSpeed;  // start off moving left
+  
   } // constructor
 
   /* move
@@ -57,13 +56,17 @@ public class LevelTwoAlien extends Entity {
   } // doLogic
  
   public boolean tryToFire() {
-	  int randNum = (int)(Math.random() * 15); 
+
+	  int randNum = (int)(Math.random() * 10); 
 	  if(randNum == 1 && (System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
 		  lastAlienFire = System.currentTimeMillis();
+
+		  return true;
 		 
             }//if
    	   return false;
   }//tryToFire
+
   /* collidedWith
    * input: other - the entity with which the alien has collided
    * purpose: notification that the alien has collided
