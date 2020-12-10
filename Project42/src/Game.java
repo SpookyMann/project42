@@ -322,6 +322,9 @@ public class Game extends Canvas {
             // draw all entities
             for (int i = 0; i < entities.size(); i++) {
                Entity entity = (Entity) entities.get(i);
+	       if(entity instanceof ShipEntity) {
+            	   entity.createSprite(null);
+               }
                entity.draw(g);
             } // for
 
