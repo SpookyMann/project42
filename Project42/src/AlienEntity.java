@@ -3,8 +3,8 @@
  * Represents one of the aliens
  */
 public class AlienEntity extends Entity {
-	private long lastAlienFire = 0;
-	int firingIntervalAlien = (int)(Math.random( ) * 700 + 400);
+	 private long lastAlienFire =  System.currentTimeMillis();;
+	  private int firingIntervalAlien = (int)(Math.random( ) * 700 + 400);
   private double moveSpeed = 75; // horizontal speed
 
   private Game game; // the game in which the alien exists
@@ -55,8 +55,11 @@ public class AlienEntity extends Entity {
   } // doLogic
  
   public boolean tryToFire() {
-	  if((System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
-          return true;
+	  int randNum = (int)(Math.random() * 10); 
+	  if(randNum == 1 && (System.currentTimeMillis() - lastAlienFire) > firingIntervalAlien){
+		  lastAlienFire = System.currentTimeMillis();
+
+		  return true;
 		 
             }//if
    	   return false;
