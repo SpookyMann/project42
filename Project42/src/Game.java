@@ -122,7 +122,7 @@ public class Game extends Canvas {
               
               //spawns first alien
   
-                  Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 
+                  Entity alien = new AlienEntity(this, "sprites/tounge.png", 
                       500 + (10 * 40),
                       50 + (10 * 30));
                   entities.add(alien);
@@ -150,6 +150,7 @@ public class Game extends Canvas {
          public void notifyDeath() {
         	 if(lives > 1) { 
         		 lives--;
+        		 entities.remove(ship);
         		 ship = new ShipEntity(this, ship.getX(), ship.getY());
                  entities.add(ship);
         	 }else {
@@ -219,27 +220,26 @@ public class Game extends Canvas {
         	
            
           	if(en == 1) {
-          		System.out.println(en);
-                Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y);
+          		System.out.println("1");
+                Entity alien = new AlienEntity(this, "sprites/tounge.png", 1000, y);
                 entities.add(alien);
                
                 alienCount++;
-          	}
-           if(en == 2 && alienScore > 1){
-          	 
-          	  Entity alien = new LevelTwoAlien(this, "sprites/alien.gif", 1000, y); 
+          	}else if(en == 2 && alienScore > 1){
+        	   System.out.println("2");
+          	  Entity alien = new LevelTwoAlien(this, "sprites/snake.png", 1000, y); 
                       
                     entities.add(alien);
                  
                     alienCount++;
-            }else if(en == 3 && alienScore >= 1) {
-          	  System.out.println(en);
+            }else if(en == 3 && alienScore > 4) {
+          	  System.out.println("3");
           	  Entity alien = new AlienEntity(this, "sprites/greenFace.png", 1000, y); 
                      
                     entities.add(alien);
                   
                     alienCount++;
-            }else if(en == 4 && alienScore > 1 ) {
+            }else if(en == 4 && alienScore > 4 ) {
             	int num = (int)(Math.random( ) * 3 + 1);
             	if(num == 1) {
             	  Entity alien = new Asteroid(this, "sprites/bigAsteroid.png", 1000, y);
@@ -254,14 +254,14 @@ public class Game extends Canvas {
                     entities.add(alien);
                     alienCount++;
             	}
-            }else if(en == 5 && alienScore > 2) {
-          	  System.out.println(en);
-          	  Entity alien = new AlienEntity(this, "sprites/manyStick.png", 1000, y);
+            }else if(en == 5 && alienScore > 10) {
+          	  System.out.println("5");
+          	  Entity alien = new AlienEntity(this, "sprites/creep.png", 1000, y);
                     
                     entities.add(alien);
                     alienCount++;
             }else {
-            	System.out.println(en);
+            	System.out.println("last");
                 Entity alien = new AlienEntity(this, "sprites/blueEnemy.png", 1000, y); 
                  
                 entities.add(alien);
