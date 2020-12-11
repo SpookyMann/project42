@@ -47,7 +47,7 @@ public class ShotEntity extends Entity {
      } // if
      
      // if it has hit an alien, kill it!
-     if (other instanceof AlienEntity) {
+     if (other instanceof AlienEntity || other instanceof LevelTwoAlien || other instanceof Asteroid) {
        // remove affect entities from the Entity list
        game.removeEntity(this);
        game.removeEntity(other);
