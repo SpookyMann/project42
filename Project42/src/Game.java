@@ -332,7 +332,7 @@ public class Game extends Canvas {
                 if (entity instanceof AlienEntity ) {
                 	if(entity.tryToFire() == true) {
 
-                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/blueshot.png", 
+                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/bluepower.png", 
                               entity.getX(), entity.getY());
                 		entities.add(shot);
                 }
