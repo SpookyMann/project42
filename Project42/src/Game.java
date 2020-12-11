@@ -169,32 +169,36 @@ public class Game extends Canvas {
 
         /* Notification than an alien has been killed
          */
-         public void notifyAlienKilled() {
+        public void notifyAlienKilled(int x, int y) {
+           int dropChance = 0;
            alienCount--;
+           alienScore++;
            
-        
+           dropChance = (int) (Math.random()*30) + 1;
            
-           // speed up existing aliens
-           for (int i=0; i < entities.size(); i++) {
-             Entity entity = (Entity) entities.get(i);
-             if (entity instanceof AlienEntity || entity instanceof LevelTwoAlien) {
-               // speed up by 2%
-            	 alienScore++;
-            	 int y = entity.getY();
-            	 int x = entity.getY();
-            	 Entity alien = new DeathEntity(this, "sprites/death.png", 
-                         500,
-                         500);
-                     entities.add(alien);
-                     if ((System.currentTimeMillis() - lastDeath) < deathInterval){
-                         return;
-                       }else {
+           if(dropChance == 10) {
+        	   
+           } else if (dropChance == 20){
+        	   
+           } else if (dropChance == 30) {
+        	   
+           }
+         
+           Entity alien = new DeathEntity(this, "sprites/death.png", x, y);
+                  entities.add(alien);
+                  if ((System.currentTimeMillis() - lastDeath) < deathInterval){
+                       return;
+                     } else {
                        lastDeath = System.currentTimeMillis();
                        entities.remove(alien);
-                       }
-             }
-           } // for
+                     }
+             
+           
          } // notifyAlienKilled
+         
+         public void notifyPowerUp() {
+        	 
+         }
    
         /* Attempt to fire.*/
         public void tryToFire() {
