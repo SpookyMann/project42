@@ -324,7 +324,7 @@ public class Game extends Canvas {
                 
                   	if(entity.tryToFire() == true) {
                   		
-                  		AlienShotDefault shot = new AlienShotDefault(this, "sprites/blueshot.gif", 
+                  		AlienShotDefault shot = new AlienShotDefault(this, "sprites/greenpoint.png", 
                                 entity.getX(), entity.getY());
                   		entities.add(shot);
                   	}
@@ -332,7 +332,7 @@ public class Game extends Canvas {
                 if (entity instanceof AlienEntity ) {
                 	if(entity.tryToFire() == true) {
 
-                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/greenpoint.png", 
+                		AlienShotDefault shot = new AlienShotDefault(this, "sprites/blueshot.png", 
                               entity.getX(), entity.getY());
                 		entities.add(shot);
                 }
